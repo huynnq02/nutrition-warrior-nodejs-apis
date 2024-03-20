@@ -69,13 +69,9 @@ This meal appears to be a well-balanced and nutritious choice. However, it might
 
         const imagePart = fileToGenerativePart(imageBuffer, "image/png");
 
-        const analyzeResult = await model.generateContent([
-          analyzePrompt,
-          imagePart,
-        ]);
-        const adviceResult = await model.generateContent([
-          advicePrompt,
-          imagePart,
+        const [analyzeResult, adviceResult] = await Promise.all([
+          model.generateContent([analyzePrompt, imagePart]),
+          model.generateContent([advicePrompt, imagePart]),
         ]);
 
         const analyzeText = analyzeResult.response.text();
