@@ -1,6 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Key from "../models/key.js";
-import fs from "fs";
 const getKey = async () => {
   try {
     const key = await Key.aggregate([{ $sample: { size: 1 } }]);
@@ -28,8 +27,7 @@ export const ImageController = {
       console.log("Go inside");
 
       if (req.file) {
-        const uploadedFilename = req.file.filename;
-        const uploadedPath = req.file.path;
+
 
         const key = await getKey();
         console.log("Key: " + key[0].key);
@@ -67,7 +65,7 @@ This meal appears to be a well-balanced and nutritious choice. However, it might
 **Additional tips:**
 
 * Consider adding a disclaimer that the provided information is for general informational purposes and should not substitute professional dietary advice.`;
-        const imageBuffer = await fs.promises.readFile(uploadedPath);
+        const imageBuffer = req.file.buffer;
 
         const imagePart = fileToGenerativePart(imageBuffer, "image/png");
 
@@ -80,11 +78,8 @@ This meal appears to be a well-balanced and nutritious choice. However, it might
           imagePart,
         ]);
 
-
         const analyzeText = analyzeResult.response.text();
         const adviceText = adviceResult.response.text();
-
-        await fs.promises.unlink(uploadedPath);
 
         return res.status(200).json({
           success: true,
