@@ -25,6 +25,7 @@ app.use(cors());
 import KeyRouter from "./routers/key_router.js";
 import ImageRouter from "./routers/image_router.js";
 import PostRouter from "./routers/post_router.js";
+import LikeRouter from "./routers/like_router.js";
 //#end region
 
 //#region setup router
