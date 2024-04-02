@@ -26,12 +26,15 @@ import KeyRouter from "./routers/key_router.js";
 import ImageRouter from "./routers/image_router.js";
 import PostRouter from "./routers/post_router.js";
 import LikeRouter from "./routers/like_router.js";
+import CommentRouter from "./routers/comment_router.js";
 //#end region
 
 //#region setup router
 app.use("/api/v1/keys", KeyRouter);
 app.use("/api/v1/images", ImageRouter);
 app.use("/api/v1/posts", PostRouter);
+app.use("/api/v1/comments", CommentRouter);
+app.use("/api/v1/likes", LikeRouter);
 
 //#end region
 
